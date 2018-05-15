@@ -7,7 +7,12 @@ $product = new Product('apple', 1.2);
 
 $cart->add($product, 5);
 $cart->add($product, 5);
+$cart->add($product, 5);
 
 echo "<pre>";
 print_r($cart);
+echo "</pre>";
+
+echo "<pre>";
+print_r($_SESSION);
 echo "</pre>";
