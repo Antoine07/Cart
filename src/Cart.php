@@ -3,17 +3,15 @@ class Cart
 {
     private $storage ;
 
-    public function __construct()
+    public function __construct($storage)
     {
-        $this->storage = [];
+        $this->storage = $storage;
     }
 
     public function add(Product $product, int $quantity):void{
 
-        if (array_key_exists($product->getName(), $this->storage)){
-            $this->storage[$product->getName()] += $product->getPrice()*$quantity;
-        }else{
-            $this->storage[$product->getName()] = $product->getPrice()*$quantity;
-        }
+        $priceTTC = $product->getPrice() * $quantity;
+
+       $this->storage->setValue($product->getName(), $priceTTC);
     }
 }
