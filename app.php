@@ -1,7 +1,8 @@
 <?php
 require_once  __DIR__ . '/vendor/autoload.php';
+$storage = new StorageSeesion();
 
-$cart = new Cart();
+$cart = new Cart($storage);
 $product = new Product('apple', 1.2);
 
 $cart->add($product, 5);
