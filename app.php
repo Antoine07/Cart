@@ -2,9 +2,9 @@
 require_once  __DIR__ . '/vendor/autoload.php';
 
 $connect = new Connect([
-    'dsn' => 'mysql:host=localhost;dbname=fruit',
+    'dsn' => 'mysql:host=localhost;dbname=Fruit',
     'username' => 'root',
-    'password' => 'root'
+    'password' => 'Antoine'
 ]);
 
 echo "<pre>";
@@ -14,15 +14,8 @@ echo "</pre>";
 $storage = new StorageMySQL($connect->db);
 
 $cart = new Cart($storage);
-$apple = new Product('apple', 1);
+$apple = new Product('AAA', 1);
 $cart->add($apple, 5);
 
-echo "<pre>";
-print_r($cart);
-echo "</pre>";
-
-echo "<pre>";
-print_r($_SESSION);
-echo "</pre>";
 
 
