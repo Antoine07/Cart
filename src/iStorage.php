@@ -1,4 +1,4 @@
-<?php namespace Fruit;
+<?php
 
 interface iStorage
 {

@@ -21,14 +21,14 @@ class StorageSeesion implements iStorage
         $_SESSION[$this->sessionName][$name] += $value;
     }
 
-    public function restore($name): void
+    public function restore(string $name): void
     {
         if (array_key_exists($name, $_SESSION[$this->sessionName])) {
             unset($_SESSION[$this->sessionName][$name]);
         }
     }
 
-    public function reset()
+    public function reset():void
     {
         $_SESSION[$this->sessionName] = [];
     }
