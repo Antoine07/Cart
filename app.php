@@ -1,6 +1,17 @@
 <?php
 require_once  __DIR__ . '/vendor/autoload.php';
-$storage = new StorageSeesion();
+
+$connect = new Connect([
+    'dsn' => 'mysql:host=localhost;dbname=fruit',
+    'username' => 'root',
+    'password' => 'root'
+]);
+
+echo "<pre>";
+print_r($connect->db);
+echo "</pre>";
+
+$storage = new StorageMySQL($connect->db);
 
 $cart = new Cart($storage);
 $apple = new Product('apple', 1);

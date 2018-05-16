@@ -1,5 +1,5 @@
 USERNAME='root'
-PASSWORD='root'
+PASSWORD='Antoine'
 DBNAME='Fruit'
 HOST='localhost'
 
