@@ -1,8 +1,8 @@
 <?php
 
-class StorageSeesion
+class StorageSeesion implements iStorage
 {
-    private $sessionName ;
+    private $sessionName;
 
     public function __construct($sessionName = 'storage')
     {
@@ -14,13 +14,32 @@ class StorageSeesion
         }
     }
 
-    public function setValue(string $name, $value):void
+    public function setValue(string $name, $value): void
     {
-        if(!array_key_exists($name, $_SESSION[$this->sessionName])){
-            $_SESSION[$this->sessionName][$name] = 0;
-        }
+        if (empty($_SESSION[$this->sessionName][$name])) $_SESSION[$this->sessionName][$name] = 0;
 
         $_SESSION[$this->sessionName][$name] += $value;
+    }
+
+    public function restore($name): void
+    {
+        if (array_key_exists($name, $_SESSION[$this->sessionName])) {
+            unset($_SESSION[$this->sessionName][$name]);
+        }
+    }
+
+    public function reset()
+    {
+        $_SESSION[$this->sessionName] = [];
+    }
+
+    public function total(): float
+    {
+
+        if (empty($_SESSION[$this->sessionName]))
+            return 0;
+
+        return array_sum($_SESSION[$this->sessionName]);
     }
 
 }
