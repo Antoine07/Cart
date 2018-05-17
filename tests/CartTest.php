@@ -12,4 +12,19 @@ class CartTest extends  TestCase
            \Product::class ,new \Product('apple', 1.5)
         );
     }
+
+    public function testAddProduct(){
+        $storage = new MockStorage();
+        $cart = new \Cart($storage);
+
+        $this->assertInstanceOf(
+            \Cart::class , $cart
+        );
+
+        $apple = new \Product('apple', 1.5);
+        $cart->add($apple, 3);
+        $this->assertEquals($cart->total(), 3*1.5);
+
+    }
+
 }
