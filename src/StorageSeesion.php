@@ -42,4 +42,8 @@ class StorageSeesion implements iStorage
         return array_sum($_SESSION[$this->sessionName]);
     }
 
+    function restoreQuantity(string $name, float $price, int $quantity)
+    {
+        // TODO: Implement restoreQuantity() method.
+    }
 }

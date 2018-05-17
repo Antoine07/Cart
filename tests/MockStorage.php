@@ -1,6 +1,4 @@
-<?php
-
-namespace Tests;
+<?php namespace Tests;
 
 class MockStorage  implements \iStorage
 {
@@ -22,16 +20,31 @@ class MockStorage  implements \iStorage
 
     function restore(string $name): void
     {
-        // TODO: Implement restore() method.
+        if (array_key_exists($name, $this->storage['storage']) ){
+            unset($this->storage['storage'][$name]);
+        }
     }
 
     function reset(): void
     {
-        // TODO: Implement reset() method.
+        $this->storage['storage'] = [];
     }
 
     function total(): float
     {
         return array_sum($this->storage['storage']);
     }
+
+    function restoreQuantity(string $name, float $price, int $quantity)
+    {
+        if (array_key_exists($name, $this->storage['storage']) ){
+            $total = $this->storage['storage'][$name];
+
+            if($total < $quantity*$price)
+                throw new \Exception(sprintf('Bad quantity'));
+
+            $this->storage['storage'][$name] = $total -  $quantity*$price;
+        }
+    }
+
 }

@@ -44,4 +44,9 @@ class StorageMySQL implements iStorage
     {
         // TODO: Implement total() method.
     }
+
+    function restoreQuantity(string $name, float $price, int $quantity)
+    {
+        // TODO: Implement restoreQuantity() method.
+    }
 }

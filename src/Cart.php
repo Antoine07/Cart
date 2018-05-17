@@ -17,6 +17,10 @@ class Cart
         $this->storage->restore($product->getName());
     }
 
+    public function restoreQuantity(Product $product, int $quantity){
+        $this->storage->restoreQuantity($product->getName(), $product->getPrice(), $quantity);
+    }
+
     public function reset():void{
         $this->storage->reset();
     }
