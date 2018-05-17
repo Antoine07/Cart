@@ -24,9 +24,6 @@ class StorageMySQLTest  extends  TestCase
         ]);
 
         $this->pdo = $connect->db;
-        $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $this->pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE , PDO::FETCH_OBJ);
-
         $this->storage = new \StorageMySQL($this->pdo);
 
         $this->storage->reset();
