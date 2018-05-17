@@ -23,33 +23,35 @@ class CartTest extends  TestCase
 
         $apple = new \Product('apple', 1.5);
         $this->cart->add($apple, 3);
-        $this->assertEquals($this->cart->total(), 3*1.5);
+        $this->assertEquals(3*1.5 , $this->cart->total());
     }
 
     public function testRemoveProduct(){
 
         // Isolation des tests
-        $this->assertEquals($this->cart->total(), 0.0);
+        $this->assertEquals(0.0, $this->cart->total());
 
         $apple = new \Product('apple', 1.5);
         $this->cart->add($apple, 3);
         $this->cart->restore($apple);
-        $this->assertEquals($this->cart->total(), 0.0);
+        $this->assertEquals( 0.0, $this->cart->total());
     }
 
     public function testRemoveQuantityProduct(){
 
         // Isolation des tests
-        $this->assertEquals($this->cart->total(), 0.0);
+        $this->assertEquals(0.0, $this->cart->total());
 
         $apple = new \Product('apple', 1.5);
         $this->cart->add($apple, 10);
         $this->cart->restoreQuantity($apple, 4);
 
-        $this->assertEquals($this->cart->total(), 1.5*6);
+        $this->assertEquals( 1.5*6, $this->cart->total());
     }
 
     public function testRestoreBadQuantity(){
+
+        $this->assertEquals(0.0, $this->cart->total());
 
         $apple = new \Product('apple', 1.5);
         $this->cart->add($apple, 2);
