@@ -7,6 +7,7 @@ class CartTest extends  TestCase
     protected $cart;
 
     public function setUp(){
+
         $this->cart = new \Cart(new MockStorage());
     }
 

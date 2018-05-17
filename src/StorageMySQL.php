@@ -1,14 +1,8 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: antoine
- * Date: 16/05/18
- * Time: 11:11
- */
 
 class StorageMySQL implements iStorage
 {
-    private $connect ;
+    private $connect;
 
     public function __construct($connect)
     {
@@ -21,7 +15,7 @@ class StorageMySQL implements iStorage
         $checked->bindParam(':name', $name);
         $checked->execute();
 
-        if($checked->rowCount() == 0)
+        if ($checked->rowCount() == 0)
             throw new Exception(sprintf("Le produit n'est plus en base de données %s", $name));
 
         $stmt = $this->connect->prepare("UPDATE products SET total = total + :total WHERE name=:name");
@@ -37,12 +31,16 @@ class StorageMySQL implements iStorage
 
     function reset(): void
     {
-        // TODO: Implement reset() method.
+        $stmt = $this->connect->prepare("UPDATE products SET total = 0.0");
+        $stmt->execute();
     }
 
     function total(): float
     {
-        // TODO: Implement total() method.
+        $result = $this->connect->prepare('SELECT SUM(total) as total FROM products');
+        $result->execute();
+
+        return $result->fetch()->total?? 0;
     }
 
     function restoreQuantity(string $name, float $price, int $quantity)

@@ -13,27 +13,41 @@ use PHPUnit\Framework\TestCase;
 class StorageMySQLTest  extends  TestCase
 {
     protected $pdo;
+    protected $storage;
 
-    /**
-     *
-     */
     public function setUp()
     {
-        $this->pdo = new PDO('sqlite::memory:');
+        $connect = new \Connect([
+            'dsn' => 'mysql:host=localhost;dbname=fruittest',
+            'username' => 'root',
+            'password' => 'Antoine'
+        ]);
+
+        $this->pdo = $connect->db;
         $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $this->pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE , PDO::FETCH_OBJ);
 
-        $this->pdo->exec(
-            "CREATE TABLE IF NOT EXISTS products
-          (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            name VARCHAR( 225 ),
-            price DECIMAL(4,2),
-            total DECIMAL(4,2)
-          )
-      ");
+        $this->storage = new \StorageMySQL($this->pdo);
 
-        $this->pdo->query('INSERT INTO products (name, price) VALUES  (\'apple\', 10.5), (\'raspberry\',13), (\'strawberry\', 7.8)');
-
+        $this->storage->reset();
     }
 
+
+    /**
+     * @description : test si la table de test est bien créée
+     */
+    public function testInitStorageMySQL(){
+
+        // test de l'instance de la classe Product
+        $this->assertInstanceOf(
+            \StorageMySQL::class , $this->storage
+        );
+    }
+
+    public function testAddProduct(){
+
+        $this->storage->setValue('apple', 5*1.5);
+
+        $this->assertEquals(5*1.5, $this->storage->total());
+    }
 }
